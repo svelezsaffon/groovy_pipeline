@@ -1,8 +1,8 @@
 pipeline{
     agent{
         kubernetes{
+            label "groovy_pipeline"
             cloud "kubernetes"
-            yaml ''''''
         }
     }
 
