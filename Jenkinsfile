@@ -3,6 +3,7 @@ pipeline{
         kubernetes{
             inheritFrom "python-pod"
             cloud "kubernetes"
+            defaultContainer: "python-container"
         }
     }
 
@@ -10,9 +11,9 @@ pipeline{
     stages{
         stage("set_up"){
             steps{
-                container("python-container"){
-                    sh 'pip3 list'
-                }
+                
+                sh 'pip3 list'
+                
             }
         }
     }
