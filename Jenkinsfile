@@ -3,7 +3,7 @@ pipeline{
         kubernetes{
             inheritFrom "python-pod"
             cloud "kubernetes"
-            defaultContainer: "python-container"
+            defaultContainer "python-container"
         }
     }
 
