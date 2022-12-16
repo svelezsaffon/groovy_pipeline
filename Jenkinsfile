@@ -1,7 +1,7 @@
 pipeline{
     agent{
         kubernetes{
-            label "alpine-agent"
+            inheritFrom "alpine-agent"
             cloud "kubernetes"
         }
     }
