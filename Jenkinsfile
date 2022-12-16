@@ -1,7 +1,7 @@
 pipeline{
     agent{
         kubernetes{
-            inheritFrom "alpine-pod"
+            inheritFrom "python-pod"
             cloud "kubernetes"
         }
     }
@@ -10,7 +10,7 @@ pipeline{
     stages{
         stage("set_up"){
             steps{
-                container("alpine-container"){
+                container("python-container"){
                     sh 'ls -la'
                 }
             }
