@@ -8,11 +8,12 @@ pipeline{
 
     stages{
         stage("set_up"){
-            container("alpine-container"){
-                sh 'ls -la'
+            steps{
+                container("alpine-container"){
+                    sh 'ls -la'
+                }
             }
         }
-
     }
 
 }
