@@ -11,7 +11,7 @@ pipeline{
         stage("set_up"){
             steps{
                 container("python-container"){
-                    sh 'ls -la'
+                    sh 'pip3 list'
                 }
             }
         }
