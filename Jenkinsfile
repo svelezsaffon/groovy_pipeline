@@ -1,7 +1,7 @@
 pipeline{
     agent{
         kubernetes{
-            label "groovy_pipeline"
+            label "alpine-agent"
             cloud "kubernetes"
         }
     }
