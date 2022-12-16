@@ -12,13 +12,14 @@ pipeline{
         stage("environment"){
             steps{
                 container("python-container"){
-                        sh "printenv"
+                    sh "echo ${env.JENKINS_AGENT_NAME}"
+                    sh 'pip3 list'
                 }
             }
         }
         stage("set_up"){
             steps{
-                sh "echo ${env.NODE_NAME}"
+                sh "echo ${env.JENKINS_AGENT_NAME}"
                 sh 'pip3 list'
             }
         }
