@@ -1,6 +1,7 @@
 pipeline{
     agent{
         kubernetes{
+            cloud "kubernetes"
             yaml ''''''
         }
     }
