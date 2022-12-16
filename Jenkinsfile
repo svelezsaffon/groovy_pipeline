@@ -10,9 +10,9 @@ pipeline{
 
     stages{
         stage("environment"){
-            container("python-container"){
-                steps{
-                    sh "printenv"
+            steps{
+                container("python-container"){
+                        sh "printenv"
                 }
             }
         }
