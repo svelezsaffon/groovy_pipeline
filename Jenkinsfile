@@ -1,7 +1,7 @@
 pipeline{
     agent{
         kubernetes{
-            inheritFrom "alpine-agent"
+            inheritFrom "alpine-pod"
             cloud "kubernetes"
         }
     }
