@@ -7,12 +7,10 @@ pipeline{
         }
     }
 
-
     stages{
         stage("set_up"){
             steps{
-                sh "echo ${env.JENKINS_AGENT_NAME}"
-                sh 'pip3 list'
+                sh "ls"
             }
         }
         stage("run_python"){
