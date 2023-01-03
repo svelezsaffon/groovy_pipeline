@@ -16,7 +16,7 @@ pipeline{
         stage("run_python"){
             steps{
                 sh "echo ${env.JENKINS_AGENT_NAME}"
-                sh 'python3 test/test_all.py'
+                sh 'python3 -m unittest test/test_all.py'
             }
         }
     }
