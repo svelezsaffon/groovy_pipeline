@@ -1,5 +1,9 @@
 def concat(aux){
-    return "svs ${aux}"
+  def platformList = [linux: "linuxbsd", windows: "windows"]
+
+  def scons_plat=platformList.get(aux)
+
+  return scons_plat ? scons_plat : "linuxbsd"
 }
 
 pipeline{
