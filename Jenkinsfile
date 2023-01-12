@@ -6,6 +6,34 @@ def mapSconsPlatform(current_platform) {
   return scons_plat ? scons_plat : "linuxbsd"
 }
 
+def k8stemplate(container_image,container_name) {
+  return """
+spec:
+  containers:
+  - args:
+    - 9999999
+    command:
+    - sleep
+    env:
+    - name: JENKINS_URL
+      value: http://jenkins.jec-sid.svc.cluster.local:8080/
+    image: ${container_image}
+    imagePullPolicy: IfNotPresent
+    name: ${container_name}
+    resources:
+      limits: {}
+      requests: {}
+    tty: false
+    volumeMounts:
+    - mountPath: /home/jenkins/agent
+      name: "workspace-volume"
+      readOnly: false
+    workingDir: /home/jenkins/agent
+  imagePullSecrets:
+  - name: private-registry
+"""
+}
+
 
 pipeline{
 
@@ -20,6 +48,7 @@ pipeline{
         {
             inheritFrom "python-pod"
             defaultContainer "python-${params.PLATFORM}"
+            yaml yaml k8stemplate("python:3.11.1-alpine","python-${params.PLATFORM}")
         }
     }
     
