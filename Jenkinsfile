@@ -48,7 +48,7 @@ pipeline{
         {
             inheritFrom "python-pod"
             defaultContainer "python-${params.PLATFORM}"
-            yaml yaml k8stemplate("python:3.11.1-alpine","python-${params.PLATFORM}")
+            yaml k8stemplate("python:3.11.1-alpine","python-${params.PLATFORM}")
         }
     }
     
