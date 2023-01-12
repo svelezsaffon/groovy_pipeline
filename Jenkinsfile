@@ -8,13 +8,7 @@ def mapSconsPlatform(current_platform) {
 
 
 pipeline{
-    /*
-        Configuration parameters
 
-        -   BASE_DISTRIBUTION: BAse OS distribution version
-        
-        -   BUILD_CONTAINER_NAME: Overide the build container name
-    */
     parameters
     {
         choice(name: 'PLATFORM', choices: ['container', 'container2'], description: 'OS platform to be build for')
@@ -24,7 +18,7 @@ pipeline{
     {
         kubernetes 
         {
-            inheritFrom "GodotBuilder"
+            inheritFrom "python-pod"
             defaultContainer "godot-builder-${params.PLATFORM}"
         }
     }
