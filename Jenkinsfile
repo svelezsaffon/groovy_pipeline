@@ -7,18 +7,41 @@ pipeline{
         }
     }
 
-    stages{
-        stage("set_up"){
-            steps{
-                sh "ls"
-            }
-        }
-        stage("run_python"){
-            steps{
-                sh "echo ${env.JENKINS_AGENT_NAME}"
-                sh 'python3 -m unittest test/test_all.py'
-            }
-        }
+    
+    stages
+    {
+        /*
+            Main step to build godot for all othe platforms
+         */
+        stage("Build all platforms"){
+            matrix
+            {
+                axes
+                {
+                    axis
+                    {
+                        name 'PLATFORM'
+                        values 'linux', 'windows'
+                    }
+                }
+                stages
+                {
+                    stage ('Build') 
+                    {                        
+                        steps
+                        {
+                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                            {
+                                script
+                                {
+                                    //scons_platform = mapSconsPlatform(${PLATFORM})
+                                    echo "${PLATFORM}"
+                                }
+                            }
+                        }
+                    }
+                }
+            }       
+        }   
     }
-
 }
