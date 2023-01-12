@@ -39,7 +39,7 @@ pipeline{
 
     parameters
     {
-        choice(name: 'PLATFORM', choices: ['container', 'container2'], description: 'OS platform to be build for')
+        choice(name: 'PLATFORM', choices: ['windows', 'container2'], description: 'OS platform to be build for')
     }
 
     agent
