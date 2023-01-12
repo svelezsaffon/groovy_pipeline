@@ -1,56 +1,53 @@
-def concat(aux){
+def mapSconsPlatform(current_platform) {
   def platformList = [linux: "linuxbsd", windows: "windows"]
 
-  def scons_plat=platformList.get(aux)
+  def scons_plat=platformList.get(current_platform)
 
   return scons_plat ? scons_plat : "linuxbsd"
 }
 
+
 pipeline{
-    agent{
-        kubernetes{
-            inheritFrom "python-pod"
-            cloud "kubernetes"
-            defaultContainer "python-container"
-        }
+    /*
+        Configuration parameters
+
+        -   BASE_DISTRIBUTION: BAse OS distribution version
+        
+        -   BUILD_CONTAINER_NAME: Overide the build container name
+    */
+    parameters
+    {
+        text(name: 'BUILD_CONTAINER_NAME', defaultValue: '', description: 'Build container name to be used')
+        choice(name: 'PLATFORM', choices: ['container', 'container2'], description: 'OS platform to be build for')
     }
 
+    agent
+    {
+        kubernetes 
+        {
+            inheritFrom "GodotBuilder"
+            defaultContainer "godot-builder-${env.PLATFORM}"
+        }
+    }
     
     stages
     {
-        /*
-            Main step to build godot for all othe platforms
-         */
-        stage("Build all platforms"){
-            matrix
+        stage ('Build') 
+        {
+                        
+            steps
             {
-                axes
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
                 {
-                    axis
+                    script
                     {
-                        name 'PLATFORM'
-                        values 'linux', 'windows'
+                        scons_platform = mapSconsPlatform(PLATFORM)
+                        sh("echo building ${scons_platform}")
+                        
                     }
                 }
-                stages
-                {
-                    stage ('Build') 
-                    {                        
-                        steps
-                        {
-                            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-                            {
-                                script
-                                {
-                                    //scons_platform = mapSconsPlatform(${PLATFORM})
-                                    name = concat(PLATFORM)
-                                    sh("echo ${name}")
-                                }
-                            }
-                        }
-                    }
-                }
-            }       
-        }   
+            }
+        }
     }
+    
 }
