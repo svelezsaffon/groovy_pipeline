@@ -19,7 +19,7 @@ pipeline{
         kubernetes 
         {
             inheritFrom "python-pod"
-            defaultContainer "godot-builder-${params.PLATFORM}"
+            defaultContainer "python-${params.PLATFORM}"
         }
     }
     
@@ -36,7 +36,6 @@ pipeline{
                     {
                         scons_platform = mapSconsPlatform("${params.PLATFORM}")
                         sh("echo building ${scons_platform}")
-                        
                     }
                 }
             }
