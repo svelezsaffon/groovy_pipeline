@@ -40,7 +40,7 @@ pipeline{
                                 {
                                     //scons_platform = mapSconsPlatform(${PLATFORM})
                                     name = concat(PLATFORM)
-                                    echo "${name}"
+                                    sh("echo ${name}")
                                 }
                             }
                         }
