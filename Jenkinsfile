@@ -1,3 +1,7 @@
+def concat(aux){
+    return "svs"
+}
+
 pipeline{
     agent{
         kubernetes{
@@ -35,7 +39,8 @@ pipeline{
                                 script
                                 {
                                     //scons_platform = mapSconsPlatform(${PLATFORM})
-                                    echo "${PLATFORM}"
+                                    name = concat(${PLATFORM})
+                                    echo "${name}"
                                 }
                             }
                         }
