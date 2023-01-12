@@ -1,9 +1,9 @@
 def mapSconsPlatform(current_platform) {
-  def platformList = [linux: "linuxbsd", windows: "windows"]
+  def platformList = [container2: "container2", windows: "windows"]
 
   def scons_plat=platformList.get(current_platform)
 
-  return scons_plat ? scons_plat : "linuxbsd"
+  return scons_plat ? scons_plat : "container2"
 }
 
 def k8stemplate(container_image,container_name) {
