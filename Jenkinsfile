@@ -1,5 +1,5 @@
 def concat(aux){
-    return "svs"
+    return "svs ${aux}"
 }
 
 pipeline{
@@ -39,7 +39,7 @@ pipeline{
                                 script
                                 {
                                     //scons_platform = mapSconsPlatform(${PLATFORM})
-                                    name = concat(${PLATFORM})
+                                    name = concat(PLATFORM)
                                     echo "${name}"
                                 }
                             }
