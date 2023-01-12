@@ -63,7 +63,7 @@ pipeline{
                 {
                     script
                     {
-                        scons_platform = mapSconsPlatform("${params.PLATFORM}")
+                        scons_platform = mapSconsPlatform(params.PLATFORM)
                         sh("echo building ${scons_platform}")
                     }
                 }
