@@ -17,7 +17,6 @@ pipeline{
     */
     parameters
     {
-        text(name: 'BUILD_CONTAINER_NAME', defaultValue: '', description: 'Build container name to be used')
         choice(name: 'PLATFORM', choices: ['container', 'container2'], description: 'OS platform to be build for')
     }
 
@@ -26,7 +25,7 @@ pipeline{
         kubernetes 
         {
             inheritFrom "GodotBuilder"
-            defaultContainer "godot-builder-${PLATFORM}"
+            defaultContainer "godot-builder-${params.PLATFORM}"
         }
     }
     
@@ -41,7 +40,7 @@ pipeline{
                 {
                     script
                     {
-                        scons_platform = mapSconsPlatform("${PLATFORM}")
+                        scons_platform = mapSconsPlatform("${params.PLATFORM}")
                         sh("echo building ${scons_platform}")
                         
                     }
