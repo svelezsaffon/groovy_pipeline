@@ -26,7 +26,7 @@ pipeline{
         kubernetes 
         {
             inheritFrom "GodotBuilder"
-            defaultContainer "godot-builder-${env.PLATFORM}"
+            defaultContainer "godot-builder-${PLATFORM}"
         }
     }
     
@@ -41,7 +41,7 @@ pipeline{
                 {
                     script
                     {
-                        scons_platform = mapSconsPlatform(PLATFORM)
+                        scons_platform = mapSconsPlatform("${PLATFORM}")
                         sh("echo building ${scons_platform}")
                         
                     }
