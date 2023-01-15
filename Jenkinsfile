@@ -68,9 +68,9 @@ pipeline{
           steps
           {
             
-            sh 'dnf install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
-            sh 'dnf install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
-            sh 'dnf install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
+            sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
+            sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
+            sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
             
           }
         }
