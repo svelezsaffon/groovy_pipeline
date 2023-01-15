@@ -39,7 +39,7 @@ pipeline{
 
     parameters
     {
-        choice(name: 'PLATFORM', choices: ['windows', 'container2'], description: 'OS platform to be build for')
+        string(name: 'BRANCH_NAME', default:'master', description: 'OS platform to be build for')
     }
 
     agent
@@ -47,16 +47,24 @@ pipeline{
         kubernetes 
         {
             inheritFrom "python-pod"
-            defaultContainer "python-${params.PLATFORM}"
-            yaml k8stemplate("python:latest","python-${params.PLATFORM}")
+            defaultContainer "fed-${params.BRANCH_NAME}"
+            yaml k8stemplate("fedora:36","fed-${params.BRANCH_NAME}")
         }
     }
     
     stages
     {
+        stage('Pull')
+        {
+          steps
+          {
+            git branch: "${params.BRANCH_NAME}", url: "https://github.com/godotengine/godot.git"
+          }
+        }
+
         stage ('Build') 
         {
-                        
+          
             steps
             {
                 catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
