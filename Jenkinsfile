@@ -67,11 +67,11 @@ pipeline{
         stage("install libs"){
           steps
           {
-            script{
-              dnf install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel
-              dnf install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel
-              dnf install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static
-            }
+            
+            sh 'dnf install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
+            sh 'dnf install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
+            sh 'dnf install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
+            
           }
         }
 
