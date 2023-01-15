@@ -39,9 +39,9 @@ pipeline{
 
     parameters
     {
-        string(name: 'BRANCH_NAME', default:'master', description: 'OS platform to be build for')
+        string(name: 'BRANCH_NAME', defaultValue:'master', description: 'OS platform to be build for')
 
-        string(name: 'REPO_URL', default:"https://github.com/godotengine/godot.git", description: 'OS platform to be build for')
+        string(name: 'REPO_URL', defaultValue:"https://github.com/godotengine/godot.git", description: 'OS platform to be build for')
     }
 
     agent
