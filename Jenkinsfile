@@ -49,8 +49,8 @@ pipeline{
         kubernetes 
         {
             inheritFrom "python-pod"
-            defaultContainer "fed-${params.BRANCH_NAME}"
-            yaml k8stemplate("fedora:36","fed-${params.BRANCH_NAME}")
+            defaultContainer "fed-builder"
+            yaml k8stemplate("fedora:36","fed-builder")
         }
     }
     
