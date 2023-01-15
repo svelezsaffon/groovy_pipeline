@@ -39,7 +39,9 @@ pipeline{
 
     parameters
     {
-        string(name: 'BRANCH_NAME', defaultValue:'master', description: 'OS platform to be build for')
+        string(name: 'BRANCH_NAME', default:'master', description: 'OS platform to be build for')
+
+        string(name: 'REPO_URL', default:"https://github.com/godotengine/godot.git", description: 'OS platform to be build for')
     }
 
     agent
@@ -54,11 +56,22 @@ pipeline{
     
     stages
     {
-        stage('Pull')
+        stage('Clone Repo')
         {
           steps
           {
-            git branch: "${params.BRANCH_NAME}", url: "https://github.com/godotengine/godot.git"
+            git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+          }
+        }
+
+        stage("install libs"){
+          steps
+          {
+            script{
+              dnf install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel
+              dnf install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel
+              dnf install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static
+            }
           }
         }
 
@@ -72,7 +85,7 @@ pipeline{
                     script
                     {
                         scons_platform = mapSconsPlatform(params.PLATFORM)
-                        sh("echo building ${scons_platform}")
+                        sh("scons -j8 platform=linuxbsd")
                     }
                 }
             }
