@@ -25,63 +25,69 @@ pipeline{
 
     agent
     {
-        kubernetes 
-        {
-            defaultContainer "jnlp"
-            //yaml readPodTemplate('sss')
-        }
+      kubernetes 
+      {
+        defaultContainer "jnlp"
+      }
     }
     
     stages
     {
 
-        stage("jwjw")
+      stage("Build Godot"){
+
+        agent
         {
-          steps
-          {
-            script
+
+            kubernetes 
             {
-              pod = readPodTemplate('fedora:34')
-              sh("echo ${pod}")
+                defaultContainer "fed-builder"
+                yaml readPodTemplate("fedora:35")
             }
-          }
+
         }
 
+        stages{
 
-        stage('Clone Repo')
-        {
-          steps
-          {
-            git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
-          }
-        }
-
-        stage("install libs"){
-          steps
-          {
-            
-            sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
-            sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
-            sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
-            
-          }
-        }
-
-        stage ('Build') 
-        {
-          
-            steps
+            stage('Clone Repo')
             {
-                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+              steps
+              {
+                git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+              }
+            }
+
+            stage("install libs"){
+              steps
+              {
+                
+                sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
+                sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
+                sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
+                
+              }
+            }
+
+            stage ('Build') 
+            {
+              
+                steps
                 {
-                    script
+                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
                     {
-                        scons_platform = mapSconsPlatform(params.PLATFORM)
-                        sh("scons -j8 platform=linuxbsd")
+                        script
+                        {
+                            scons_platform = mapSconsPlatform(params.PLATFORM)
+                            sh("scons -j8 platform=linuxbsd")
+                        }
                     }
                 }
             }
+
+
         }
-    }
-    
+      }
+    }    
 }
+
+
