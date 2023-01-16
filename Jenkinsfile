@@ -48,9 +48,10 @@ pipeline{
     {
         kubernetes 
         {
-            inheritFrom "python-pod"
+            //inheritFrom "python-pod"
             defaultContainer "fed-builder"
-            yaml k8stemplate("fedora:36","fed-builder")
+            //yaml k8stemplate("fedora:36","fed-builder")
+            yamlFile 'pod_templates/build_godto.yaml'
         }
     }
     

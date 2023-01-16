@@ -1,0 +1,23 @@
+spec:
+  containers:
+  - args:
+    - 9999999
+    command:
+    - sleep
+    env:
+    - name: JENKINS_URL
+      value: http://jenkins.jec-sid.svc.cluster.local:8080/
+    image: ${container_image}
+    imagePullPolicy: IfNotPresent
+    name: ${container_name}
+    resources:
+      limits: {}
+      requests: {}
+    tty: false
+    volumeMounts:
+    - mountPath: /home/jenkins/agent
+      name: "workspace-volume"
+      readOnly: false
+    workingDir: /home/jenkins/agent
+  imagePullSecrets:
+  - name: private-registry
