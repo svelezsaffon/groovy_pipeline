@@ -34,13 +34,6 @@ pipeline{
     
     stages
     {
-        stage('Clone Repo')
-        {
-          steps
-          {
-            git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
-          }
-        }
 
         stage("jwjw")
         {
@@ -48,9 +41,18 @@ pipeline{
           {
             script
             {
-              pod = readPodTemplate('fedora:34')
-              sh("echo ${pod}")
+              //pod = readPodTemplate('fedora:34')
+              sh("ls")
             }
+          }
+        }
+
+
+        stage('Clone Repo')
+        {
+          steps
+          {
+            git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
           }
         }
 
