@@ -41,8 +41,8 @@ pipeline{
           {
             script
             {
-              //pod = readPodTemplate('fedora:34')
-              sh("ls")
+              pod = readPodTemplate('fedora:34')
+              sh("echo ${pod}")
             }
           }
         }
