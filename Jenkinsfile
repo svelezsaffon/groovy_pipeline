@@ -58,11 +58,11 @@ pipeline
           stage('Check Files')
           {
             when{
-              expression { return fileExists ('sh/helpers/linux.sh') }
+              expression { return fileExists ("sh/helpers/${params.PLATFORM}.sh") }
             }
             steps
             {
-              sh './sh/helpers/${params.PLATFORM}.sh'
+              sh "./sh/helpers/${params.PLATFORM}.sh"
             }
           }
 
