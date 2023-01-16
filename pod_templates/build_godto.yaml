@@ -4,7 +4,7 @@ spec:
     - 9999999
     command:
     - sleep
-    image: '${env.image_name}'
+    image: '${image_name}'
     imagePullPolicy: IfNotPresent
     name: fed-builder
     tty: false

@@ -6,6 +6,16 @@ def mapSconsPlatform(current_platform) {
   return scons_plat ? scons_plat : "container2"
 }
 
+def read_pod_template(image_name)
+{
+  
+    def pod = readFile file: 'pod_templates/build_godto.yaml'
+
+    return pod  
+}
+
+
+
 pipeline{
 
     parameters
@@ -29,7 +39,8 @@ pipeline{
             //inheritFrom "python-pod"
             defaultContainer "fed-builder"
             //yaml k8stemplate("fedora:36","fed-builder")
-            yamlFile 'pod_templates/build_godto.yaml'
+            //yamlFile 'pod_templates/build_godto.yaml'
+            yaml read_pod_template("fedora:36")
         }
     }
     
