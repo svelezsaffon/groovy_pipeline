@@ -1,5 +1,5 @@
 def mapSconsPlatform(current_platform) {
-  def platformList = [container2: "container2", windows: "windows"]
+  def platformList = [container2: "linux", windows: "windows"]
 
   def scons_plat=platformList.get(current_platform)
 
@@ -19,6 +19,8 @@ pipeline{
     parameters
     {
         string(name: 'BRANCH_NAME', defaultValue:'master', description: 'OS platform to be build for')
+
+        choice(name: 'PLATFORM', choices: ['linux', 'windows'], description: 'OS platform to build for')
 
         string(name: 'REPO_URL', defaultValue:"https://github.com/godotengine/godot.git", description: 'OS platform to be build for')
     }
