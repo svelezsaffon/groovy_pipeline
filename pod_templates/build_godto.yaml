@@ -4,7 +4,7 @@ spec:
     - 9999999
     command:
     - sleep
-    image: '${image_name}'
+    image: fedora:36
     imagePullPolicy: IfNotPresent
     name: fed-builder
     tty: false
