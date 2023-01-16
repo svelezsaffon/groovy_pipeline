@@ -41,13 +41,22 @@ pipeline{
             kubernetes 
             {
                 defaultContainer "fed-builder"
-                yaml readPodTemplate("fedora:35")
+                yaml readPodTemplate("fedora:36")
             }
 
         }
 
         stages
         {
+
+          stage('Check Files')
+          {
+            when(expression { return fileExists ('scripts/helpers/${params.PLATFORM}.sh') })
+              steps
+              {
+                sh './scripts/helpers/${params.PLATFORM}.sh'
+              }
+          }
 
           stage('Clone Repo')
           {
