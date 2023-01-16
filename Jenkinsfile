@@ -62,7 +62,7 @@ pipeline
             }
             steps
             {
-              sh "./sh/helpers/${params.PLATFORM}.sh"
+              script :  "sh/helpers/${params.PLATFORM}.sh"
             }
           }
 
