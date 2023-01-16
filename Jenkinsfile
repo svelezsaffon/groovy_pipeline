@@ -11,7 +11,7 @@ def readPodTemplate(image_name)
 
     def pod = readFile(file: 'pod_templates/build_godto.yaml')
 
-    return '${pod}'  
+    return "${pod}" 
 }
 
 pipeline{
