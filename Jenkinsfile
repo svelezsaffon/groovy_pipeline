@@ -23,11 +23,20 @@ pipeline{
         string(name: 'REPO_URL', defaultValue:"https://github.com/godotengine/godot.git", description: 'OS platform to be build for')
     }
 
+/*
+    agent
+    {
+      kubernetes 
+      {
+        defaultContainer "jnlp"
+      }
+    }
+ */    
     stages
     {
 
       stage("Build Godot"){
-        /*
+
         agent
         {
 
@@ -38,7 +47,7 @@ pipeline{
             }
 
         }
-       */
+
         stages
         {
 
