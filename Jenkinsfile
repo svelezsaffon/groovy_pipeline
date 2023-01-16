@@ -27,8 +27,8 @@ pipeline{
     {
         kubernetes 
         {
-            defaultContainer "fed-builder"
-            yaml readPodTemplate('sss')
+            defaultContainer "jnlp"
+            //yaml readPodTemplate('sss')
         }
     }
     
