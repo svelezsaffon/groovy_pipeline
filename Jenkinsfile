@@ -6,6 +6,7 @@ def mapSconsPlatform(current_platform) {
   return scons_plat ? scons_plat : "container2"
 }
 
+/*
 def readPodTemplate(image_name)
 {
 
@@ -13,6 +14,8 @@ def readPodTemplate(image_name)
     
     return "${pod}".replace("{image_name}",image_name)
 }
+
+*/
 
 pipeline{
 
@@ -43,7 +46,7 @@ pipeline{
             kubernetes 
             {
                 defaultContainer "fed-builder"
-                yaml readPodTemplate("fedora:36")
+                yamlFile 'pod_templates/build_godto.yaml'
             }
 
         }
