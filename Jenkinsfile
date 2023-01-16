@@ -8,8 +8,8 @@ def mapSconsPlatform(current_platform) {
 
 def read_pod_template(image_name)
 {
-  
-    def pod = readFile file: 'pod_templates/build_godto.yaml'
+
+    def pod = readFile(file: 'pod_templates/build_godto.yaml')
 
     return pod  
 }
