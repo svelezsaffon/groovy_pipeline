@@ -57,11 +57,13 @@ pipeline
 
           stage('Check Files')
           {
-            when(expression { return fileExists ('sh/helpers/${params.PLATFORM}.sh') })
-              steps
-              {
-                sh './sh/helpers/${params.PLATFORM}.sh'
-              }
+            when{
+              expression { return fileExists ('sh/helpers/${params.PLATFORM}.sh') }
+            }
+            steps
+            {
+              sh './sh/helpers/${params.PLATFORM}.sh'
+            }
           }
 
           stage('Clone Repo')
