@@ -4,12 +4,9 @@ spec:
     - 9999999
     command:
     - sleep
-    image: fedora:36
+    image: '${env.image_name}'
     imagePullPolicy: IfNotPresent
     name: fed-builder
-    resources:
-      limits: {}
-      requests: {}
     tty: false
     volumeMounts:
     - mountPath: /home/jenkins/agent
