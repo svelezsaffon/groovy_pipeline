@@ -10,8 +10,8 @@ def readPodTemplate(image_name)
 {
 
     def pod = readFile(file: 'pod_templates/build_godto.yaml')
-
-    return "${pod}" 
+    
+    return "${pod}".replace("{image_name}",image_name)
 }
 
 pipeline{
@@ -70,23 +70,21 @@ pipeline{
               }
           }
 
-            stage ('Build') 
-            {
+          stage ('Build') 
+          {
               
-                steps
+            steps
+            {
+              catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+              {
+                script
                 {
-                    catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-                    {
-                        script
-                        {
-                            scons_platform = mapSconsPlatform(params.PLATFORM)
-                            sh("scons -j8 platform=linuxbsd")
-                        }
-                    }
+                  scons_platform = mapSconsPlatform(params.PLATFORM)
+                  sh("scons -j8 platform=linuxbsd")
                 }
+              }
             }
-
-
+          }
         }
       }
     }    

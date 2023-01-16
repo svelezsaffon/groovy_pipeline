@@ -4,7 +4,7 @@ spec:
     - 9999999
     command:
     - sleep
-    image: "${image_name}"
+    image: {image_name}
     imagePullPolicy: IfNotPresent
     name: fed-builder
     tty: false
@@ -13,5 +13,3 @@ spec:
       name: "workspace-volume"
       readOnly: false
     workingDir: /home/jenkins/agent
-  imagePullSecrets:
-  - name: private-registry
