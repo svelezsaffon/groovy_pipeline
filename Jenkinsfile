@@ -28,7 +28,7 @@ pipeline{
         kubernetes 
         {
             defaultContainer "fed-builder"
-            yamlFile 'pod_templates/build_godto.yaml'
+            yaml readPodTemplate('sss')
         }
     }
     
