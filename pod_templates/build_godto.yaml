@@ -4,12 +4,9 @@ spec:
     - 9999999
     command:
     - sleep
-    env:
-    - name: JENKINS_URL
-      value: http://jenkins.jec-sid.svc.cluster.local:8080/
-    image: ${container_image}
+    image: fedora:36
     imagePullPolicy: IfNotPresent
-    name: ${container_name}
+    name: fed-builder
     resources:
       limits: {}
       requests: {}
