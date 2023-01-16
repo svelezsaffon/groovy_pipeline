@@ -14,8 +14,6 @@ def readPodTemplate(image_name)
     return pod  
 }
 
-
-
 pipeline{
 
     parameters
@@ -29,11 +27,8 @@ pipeline{
     {
         kubernetes 
         {
-            //inheritFrom "python-pod"
             defaultContainer "fed-builder"
-            //yaml k8stemplate("fedora:36","fed-builder")
             yamlFile 'pod_templates/build_godto.yaml'
-            //yaml readPodTemplate("fedora:36")
         }
     }
     
@@ -44,6 +39,18 @@ pipeline{
           steps
           {
             git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+          }
+        }
+
+        stage("jwjw")
+        {
+          steps
+          {
+            script
+            {
+              pod = readPodTemplate('fedora:34')
+              sh("echo ${pod}")
+            }
           }
         }
 
