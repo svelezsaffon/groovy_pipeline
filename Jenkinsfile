@@ -47,17 +47,19 @@ pipeline{
 
         }
 
-        stages{
+        stages
+        {
 
-            stage('Clone Repo')
-            {
+          stage('Clone Repo')
+          {
               steps
               {
                 git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
               }
-            }
+          }
 
-            stage("install libs"){
+          stage("install libs")
+          {
               steps
               {
                 
@@ -66,7 +68,7 @@ pipeline{
                 sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
                 
               }
-            }
+          }
 
             stage ('Build') 
             {
