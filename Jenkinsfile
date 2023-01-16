@@ -17,7 +17,8 @@ def readPodTemplate(image_name)
 
 */
 
-pipeline{
+pipeline
+{
 
     parameters
     {
@@ -56,10 +57,10 @@ pipeline{
 
           stage('Check Files')
           {
-            when(expression { return fileExists ('scripts/helpers/${params.PLATFORM}.sh') })
+            when(expression { return fileExists ('sh/helpers/${params.PLATFORM}.sh') })
               steps
               {
-                sh './scripts/helpers/${params.PLATFORM}.sh'
+                sh './sh/helpers/${params.PLATFORM}.sh'
               }
           }
 
