@@ -25,13 +25,6 @@ pipeline{
         string(name: 'REPO_URL', defaultValue:"https://github.com/godotengine/godot.git", description: 'OS platform to be build for')
     }
 
-    environment
-    {
-
-
-      image_name='fedora:35'
-    }
-
     agent
     {
         kubernetes 
