@@ -22,7 +22,7 @@ pipeline
 
   parameters
   {
-    string(name: 'BRANCH_NAME', defaultValue:'master', description: 'OS platform to be build for')
+    string(name: 'BRANCH_NAME', defaultValue:'caacade569eb7a541aaa7a8cdc3eedffca1422d9', description: 'OS platform to be build for')
 
     choice(name: 'PLATFORM', choices: ['linux', 'windows'], description: 'OS platform to build for')
 
@@ -59,9 +59,10 @@ pipeline
     {
       steps
       {
-        git url: "${params.REPO_URL}"
-
-        git branch: "${params.BRANCH_NAME}"
+        dir('local_godot')
+        {
+            git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+        }
       }
     }
 
@@ -78,12 +79,14 @@ pipeline
     {
       steps
       {
-        catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
-        {
-          script
+        dir('local_godot'){
+          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
           {
-            scons_platform = mapSconsPlatform(params.PLATFORM)
-            sh("scons -j6 platform=linuxbsd ${params.SCONS_PARAMS}")
+            script
+            {
+              scons_platform = mapSconsPlatform(params.PLATFORM)
+              sh("scons -j6 platform=linuxbsd ${params.SCONS_PARAMS}")
+            }
           }
         }
       }
