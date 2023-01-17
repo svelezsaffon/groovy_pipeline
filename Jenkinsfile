@@ -33,11 +33,7 @@ pipeline
 
   agent
   {
-    kubernetes 
-    {
-      defaultContainer "fed-builder"
-      yamlFile 'pod_templates/build_godto.yaml'
-    }
+    
   }
 
   stages
@@ -59,7 +55,9 @@ pipeline
     {
       steps
       {
-        git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+        git url: "${params.REPO_URL}"
+
+        sh "git checkout -b ${params.BRANCH_NAME}"
       }
     }
 
