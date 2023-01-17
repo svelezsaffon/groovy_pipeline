@@ -33,7 +33,11 @@ pipeline
 
   agent
   {
-    
+    kubernetes 
+    {
+      defaultContainer 'fed-builder'
+      yamlFile 'pod_templates/build_godto.yaml'
+    }
   }
 
   stages
