@@ -61,7 +61,7 @@ pipeline
       {
         git url: "${params.REPO_URL}"
 
-        sh "git checkout -b ${params.BRANCH_NAME}"
+        git branch: "${params.BRANCH_NAME}"
       }
     }
 
