@@ -37,9 +37,12 @@ pipeline
 
     stage("Calculate image")
     {
-      environment
+      steps
       {
-        FINAL_IMAGE = "fedora:36" 
+        environment
+        {
+          FINAL_IMAGE = "fedora:36" 
+        }
       }
     }
 
