@@ -9,12 +9,12 @@ SCONS_PARAMS=$2
 echo "this fedora ${FINAL_IMAGE}"
 
 
-if [ "$PLATFORM" = "linuxbsd" ]; then
+if [[ "$PLATFORM" == "linuxbsd" ]]; then
     
     echo "Deafaulting to x86_32 CPU architecture"
     
 
-elif [ "$PLATFORM" = "windows" ]; then
+elif [[ "$PLATFORM" == "windows" ]]; then
     
     echo "Deafaulting to X86_64 CPU architecture"
     
