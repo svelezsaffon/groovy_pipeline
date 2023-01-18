@@ -39,7 +39,6 @@ pipeline
     {
       agent
       {
-        
         kubernetes 
         {
           defaultContainer 'podman-conatiner'
@@ -111,8 +110,6 @@ pipeline
                   [
                     $class: 'GitSCM',
                     branches: [[name: "origin/${params.BRANCH_NAME}"]],
-                    //doGenerateSubmoduleConfigurations: false,
-                    //extensions: [[$class: 'LocalBranch']],
                     submoduleCfg: [],
                     userRemoteConfigs: [
                       [
@@ -152,7 +149,6 @@ pipeline
             }
           }
       } 
-
     }
   }
 }
