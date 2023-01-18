@@ -55,7 +55,7 @@ pipeline
         script
         {
           scons_platform = readPodTemplate("${env.FINAL_IMAGE}")
-          sh("echo ${params.SCONS_PARAMS}")
+          sh("echo ${scons_platform}")
         }        
       }
     }
