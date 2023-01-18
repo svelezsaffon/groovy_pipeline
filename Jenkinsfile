@@ -30,40 +30,49 @@ pipeline
     text(name: 'SCONS_PARAMS', defaultValue: 'production=yes arch=x86_64 verbose=no warnings=no progress=no target=editor', description: 'Additional scons parameters')
   }
 
-  agent
-  {
-    
-    kubernetes 
-    {
-      defaultContainer 'podman-conatiner'
-      yamlFile 'pod_templates/podman.yaml'
-    }
-  }
+
 
   stages
   {
 
-    stage("Calculate image")
+    stage("Pre configure")
     {
-      steps
+      agent
       {
-        script 
+        
+        kubernetes 
         {
-          env.FINAL_IMAGE = "fedora:36"
-        }        
+          defaultContainer 'podman-conatiner'
+          yamlFile 'pod_templates/podman.yaml'
+        }
       }
 
-    }
-
-    stage("print outside")
-    {
-      steps
+      stages
       {
-        script
+        stage("Calculate image")
         {
-          sh("echo ${env.FINAL_IMAGE}")
-        }        
+          steps
+          {
+            script 
+            {
+              env.FINAL_IMAGE = "fedora:36"
+            }        
+          }
+
+        }
+
+        stage("print outside")
+        {
+          steps
+          {
+            script
+            {
+              sh("echo ${env.FINAL_IMAGE}")
+            }        
+          }
+        }
       }
+
     }
 
     stage("Full build")
@@ -97,18 +106,22 @@ pipeline
             {
               dir('local_godot')
               {
-                checkout([$class: 'GitSCM',
+                checkout
+                (
+                  [
+                    $class: 'GitSCM',
                     branches: [[name: "origin/${params.BRANCH_NAME}"]],
                     //doGenerateSubmoduleConfigurations: false,
                     //extensions: [[$class: 'LocalBranch']],
                     submoduleCfg: [],
-                    userRemoteConfigs: [[
+                    userRemoteConfigs: [
+                      [
                         //credentialsId: 'bitwiseman_github',
-                        url: "${params.REPO_URL}"]]]
-                    )
-
-
-                  //git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+                        url: "${params.REPO_URL}"
+                      ]
+                    ]
+                  ]
+                )
               }
             }
           }
