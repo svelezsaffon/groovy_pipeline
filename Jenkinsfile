@@ -1,9 +1,9 @@
 def mapSconsPlatform(current_platform) {
-  def platformList = [container2: "linux", windows: "windows"]
+  def platformList = [linux: "linuxbsd", windows: "windows"]
 
   def scons_plat=platformList.get(current_platform)
 
-  return scons_plat ? scons_plat : "container2"
+  return scons_plat ? scons_plat : "linuxbsd"
 }
 
 
