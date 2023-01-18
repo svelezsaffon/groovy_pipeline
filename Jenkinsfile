@@ -41,8 +41,7 @@ pipeline
       {
         script 
         {
-          def test_var = "fedora:36"
-          env.FINAL_IMAGE = test_var
+          env.FINAL_IMAGE = "fedora:36"
         }        
       }
 
