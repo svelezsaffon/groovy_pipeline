@@ -6,7 +6,7 @@ def mapSconsPlatform(current_platform) {
   return scons_plat ? scons_plat : "container2"
 }
 
-/*
+
 def readPodTemplate(image_name)
 {
 
@@ -15,7 +15,6 @@ def readPodTemplate(image_name)
     return "${pod}".replace("{image_name}",image_name)
 }
 
-*/
 
 pipeline
 {
@@ -35,6 +34,15 @@ pipeline
 
   stages
   {
+
+    stage("Calculate image")
+    {
+      environment
+      {
+        FINAL_IMAGE = "fedora:36" 
+      }
+    }
+
     stage("Full build")
     {
       agent
@@ -42,63 +50,61 @@ pipeline
         kubernetes 
         {
           defaultContainer 'fed-builder'
-          yamlFile 'pod_templates/build_godto.yaml'
+          yaml readPodTemplate("${env.FINAL_IMAGE}")
         }
       }
 
-  stages    
-  {
-    
-
-      stage('Check Files')
+      stages    
       {
-        when
-        {
-          expression { return fileExists ("sh/helpers/${params.PLATFORM}.sh") }
-        }
-        steps
-        {
-          sh "sh/helpers/${params.PLATFORM}.sh"
-        }
-      }
-
-      stage('Clone Repo')
-      {
-        steps
-        {
-          dir('local_godot')
+          stage('Check Files')
           {
-              git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
-          }
-        }
-      }
-
-      stage("install libs")
-      {
-        steps
-        {
-          sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
-          sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
-          sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
-        }
-      }
-      stage ('Build') 
-      {
-        steps
-        {
-          dir('local_godot'){
-            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+            when
             {
-              script
+              expression { return fileExists ("sh/helpers/${params.PLATFORM}.sh") }
+            }
+            steps
+            {
+              sh "sh/helpers/${params.PLATFORM}.sh"
+            }
+          }
+
+          stage('Clone Repo')
+          {
+            steps
+            {
+              dir('local_godot')
               {
-                scons_platform = mapSconsPlatform(params.PLATFORM)
-                sh("scons -j6 platform=linuxbsd ${params.SCONS_PARAMS}")
+                  git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
               }
             }
           }
-        }
-      }
-    } 
+
+          stage("install libs")
+          {
+            steps
+            {
+              sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
+              sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
+              sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
+            }
+          }
+          stage ('Build') 
+          {
+            steps
+            {
+              dir('local_godot'){
+                catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+                {
+                  script
+                  {
+                    scons_platform = mapSconsPlatform(params.PLATFORM)
+                    sh("scons -j6 platform=linuxbsd ${params.SCONS_PARAMS}")
+                  }
+                }
+              }
+            }
+          }
+      } 
 
     }
   }
