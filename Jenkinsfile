@@ -56,7 +56,7 @@ pipeline
             script 
             {
               FINAL_IMAGE = "fedora:36"
-              check_if_exists = sh(returnStdout: true, script: "podman search docker.io/fedora-36")
+              check_if_exists = sh("podman search docker.io/fedora-36")
             }        
           }
         }
