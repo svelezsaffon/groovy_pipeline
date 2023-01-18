@@ -52,7 +52,7 @@ pipeline
         {
           steps
           {
-            env.FINAL_IMAGE = "fedora:36"
+            FINAL_IMAGE = "fedora:36"
             script 
             {
               check_if_exists = sh(returnStdout: true, script: '"podman search docker.io/fedora | grep 36"').trim()
