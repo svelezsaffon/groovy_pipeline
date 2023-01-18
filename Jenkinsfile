@@ -30,7 +30,15 @@ pipeline
     text(name: 'SCONS_PARAMS', defaultValue: 'production=yes arch=x86_64 verbose=no warnings=no progress=no target=editor', description: 'Additional scons parameters')
   }
 
-  agent any 
+  agent
+  {
+    
+    kubernetes 
+    {
+      defaultContainer 'podman-conatiner'
+      yamlFile 'pod_templates/podman.yaml'
+    }
+  }
 
   stages
   {
@@ -89,7 +97,18 @@ pipeline
             {
               dir('local_godot')
               {
-                  git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+                checkout([$class: 'GitSCM',
+                    branches: [[name: "origin/${params.BRANCH_NAME}"]],
+                    //doGenerateSubmoduleConfigurations: false,
+                    //extensions: [[$class: 'LocalBranch']],
+                    submoduleCfg: [],
+                    userRemoteConfigs: [[
+                        //credentialsId: 'bitwiseman_github',
+                        url: '${params.REPO_URL}']]]
+                    )
+
+
+                  //git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
               }
             }
           }
