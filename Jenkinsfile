@@ -42,7 +42,7 @@ pipeline
         script 
         {
           def test_var = "fedora:36"
-          env.test_var = test_var
+          env.FINAL_IMAGE = test_var
         }        
       }
 
@@ -54,8 +54,7 @@ pipeline
       {
         script
         {
-          scons_platform = readPodTemplate("${env.FINAL_IMAGE}")
-          sh("echo ${scons_platform}")
+          sh("echo ${env.FINAL_IMAGE}")
         }        
       }
     }
