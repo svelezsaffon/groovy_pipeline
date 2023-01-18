@@ -61,6 +61,7 @@ pipeline
           }
         }
 
+        /* 
         stage("print outside")
         {
           steps
@@ -68,6 +69,8 @@ pipeline
             sh "echo ${env.FINAL_IMAGE}"        
           }
         }
+
+        */
       }
     }
 
