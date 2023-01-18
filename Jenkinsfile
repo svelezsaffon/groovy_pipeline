@@ -22,7 +22,7 @@ pipeline
 
   parameters
   {
-    string(name: 'BRANCH_NAME', defaultValue:'caacade569eb7a541aaa7a8cdc3eedffca1422d9', description: 'OS platform to be build for')
+    string(name: 'BRANCH_NAME', defaultValue:'master', description: 'OS platform to be build for')
 
     choice(name: 'PLATFORM', choices: ['linux', 'windows'], description: 'OS platform to build for')
 
@@ -31,67 +31,75 @@ pipeline
     text(name: 'SCONS_PARAMS', defaultValue: 'production=yes arch=x86_64 verbose=no warnings=no progress=no target=editor', description: 'Additional scons parameters')
   }
 
-  agent
-  {
-    kubernetes 
-    {
-      defaultContainer 'fed-builder'
-      yamlFile 'pod_templates/build_godto.yaml'
-    }
-  }
+  agent any 
 
   stages
   {
-
-    stage('Check Files')
+    stage("Full build")
     {
-      when
+      agent
       {
-        expression { return fileExists ("sh/helpers/${params.PLATFORM}.sh") }
-      }
-      steps
-      {
-        sh "sh/helpers/${params.PLATFORM}.sh"
-      }
-    }
-
-    stage('Clone Repo')
-    {
-      steps
-      {
-        dir('local_godot')
+        kubernetes 
         {
-            git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+          defaultContainer 'fed-builder'
+          yamlFile 'pod_templates/build_godto.yaml'
         }
       }
-    }
 
-    stage("install libs")
-    {
-      steps
+  stages    
+  {
+    
+
+      stage('Check Files')
       {
-        sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
-        sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
-        sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
+        when
+        {
+          expression { return fileExists ("sh/helpers/${params.PLATFORM}.sh") }
+        }
+        steps
+        {
+          sh "sh/helpers/${params.PLATFORM}.sh"
+        }
       }
-    }
-    stage ('Build') 
-    {
-      steps
+
+      stage('Clone Repo')
       {
-        dir('local_godot'){
-          catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
+        steps
+        {
+          dir('local_godot')
           {
-            script
+              git branch: "${params.BRANCH_NAME}", url: "${params.REPO_URL}"
+          }
+        }
+      }
+
+      stage("install libs")
+      {
+        steps
+        {
+          sh 'dnf -y install scons pkgconfig libX11-devel libXcursor-devel libXrandr-devel libXinerama-devel'
+          sh 'dnf -y install libXi-devel mesa-libGL-devel mesa-libGLU-devel alsa-lib-devel pulseaudio-libs-devel'
+          sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
+        }
+      }
+      stage ('Build') 
+      {
+        steps
+        {
+          dir('local_godot'){
+            catchError(buildResult: 'SUCCESS', stageResult: 'FAILURE')
             {
-              scons_platform = mapSconsPlatform(params.PLATFORM)
-              sh("scons -j6 platform=linuxbsd ${params.SCONS_PARAMS}")
+              script
+              {
+                scons_platform = mapSconsPlatform(params.PLATFORM)
+                sh("scons -j6 platform=linuxbsd ${params.SCONS_PARAMS}")
+              }
             }
           }
         }
       }
+    } 
+
     }
-  } 
+  }
 }
-
-
