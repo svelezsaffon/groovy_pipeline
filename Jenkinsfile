@@ -103,9 +103,7 @@ pipeline
             {
               dir('local_godot')
               {
-                checkout
-                (
-                  [
+                checkout([
                     $class: 'GitSCM',
                     branches: [[name: "origin/${params.BRANCH_NAME}"]],
                     doGenerateSubmoduleConfigurations: false,
@@ -113,9 +111,7 @@ pipeline
                     submoduleCfg: [],
                     userRemoteConfigs: [[
                         //credentialsId: 'bitwiseman_github',
-                        url: "${params.REPO_URL}"]]
-                  ]
-                )                
+                        url: "${params.REPO_URL}"]]])                
               }
             }
           }
