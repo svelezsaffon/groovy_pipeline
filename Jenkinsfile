@@ -55,7 +55,7 @@ pipeline
             
             script 
             {
-              sh scrip:"podman search docker.io/fedora", label: "Lets see if thsi works"
+              sh script:"podman search docker.io/fedora", label: "Lets see if thsi works"
 
             }        
           }
