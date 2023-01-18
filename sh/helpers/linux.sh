@@ -1,8 +1,8 @@
 echo 'Configuring additional steps'
 
-SCONS_PARAMS=$1
+PLATFORM=$1
 
-PLATFORM=$2
+SCONS_PARAMS=$2
 
 echo "this fedora ${FINAL_IMAGE}"
 
