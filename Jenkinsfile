@@ -45,6 +45,19 @@ pipeline
           env.test_var = test_var
         }        
       }
+
+    }
+
+    stage("print outside")
+    {
+      steps
+      {
+        script
+        {
+          scons_platform = readPodTemplate("${env.FINAL_IMAGE}")
+          sh("echo ${params.SCONS_PARAMS}")
+        }        
+      }
     }
 
     stage("Full build")
