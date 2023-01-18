@@ -13,3 +13,6 @@ spec:
       name: "workspace-volume"
       readOnly: false
     workingDir: /home/jenkins/agent
+    securityContext:
+      privileged: true
+      runAsUser: 0
