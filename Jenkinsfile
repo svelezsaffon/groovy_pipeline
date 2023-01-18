@@ -39,10 +39,11 @@ pipeline
     {
       steps
       {
-        environment
+        script 
         {
-          FINAL_IMAGE = "fedora:36" 
-        }
+          def test_var = "fedora:36"
+          env.test_var = test_var
+        }        
       }
     }
 
