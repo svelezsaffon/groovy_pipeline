@@ -104,7 +104,7 @@ pipeline
                     submoduleCfg: [],
                     userRemoteConfigs: [[
                         //credentialsId: 'bitwiseman_github',
-                        url: '${params.REPO_URL}']]]
+                        url: "${params.REPO_URL}"]]]
                     )
 
 
