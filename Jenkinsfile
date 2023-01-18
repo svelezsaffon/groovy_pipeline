@@ -60,17 +60,6 @@ pipeline
             }        
           }
         }
-
-        /* 
-        stage("print outside")
-        {
-          steps
-          {
-            sh "echo ${env.FINAL_IMAGE}"        
-          }
-        }
-
-        */
       }
     }
 
