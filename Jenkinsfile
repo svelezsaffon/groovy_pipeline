@@ -95,7 +95,7 @@ pipeline
             }
             steps
             {
-              sh "echo pheww"
+              sh "echo 'pheww'"
             }
           }
 
@@ -137,7 +137,7 @@ pipeline
                   script
                   {
                     scons_platform = mapSconsPlatform(params.PLATFORM)
-                    sh("sh/helpers/${params.PLATFORM}.sh ${env.SCONS_PARAMS}")
+                    sh("../sh/helpers/${params.PLATFORM}.sh ${env.SCONS_PARAMS}")
                   }
                 }
               }
