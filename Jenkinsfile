@@ -52,7 +52,7 @@ pipeline
         {
           steps
           {
-            sh script:"podman search docker.io/fedora", label: "Lets see if thsi works"       
+            sh script:"echo 'phew'", label: "Lets see if thsi works"       
           }
         }
       }
@@ -103,6 +103,7 @@ pipeline
               sh 'dnf -y install libudev-devel yasm gcc-c++ libstdc++-static libatomic-static'
             }
           }
+
           stage ('Build') 
           {
             steps
