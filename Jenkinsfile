@@ -56,7 +56,7 @@ pipeline
             script 
             {
               env.FINAL_IMAGE = "fedora:36"
-              //env.check_if_exists=sh(returnStdout: true, script: "podman search docker.io/fedora-36")
+              env.check_if_exists=sh(returnStdout: true, script: "podman search docker.io/fedora-36")
             }        
           }
         }
@@ -94,15 +94,7 @@ pipeline
             {
               dir('local_godot')
               {
-                checkout([
-                    $class: 'GitSCM',
-                    branches: [[name: "origin/${params.BRANCH_NAME}"]],
-                    doGenerateSubmoduleConfigurations: false,
-                    extensions: [[$class: 'LocalBranch']],
-                    submoduleCfg: [],
-                    userRemoteConfigs: [[
-                        //credentialsId: 'bitwiseman_github',
-                        url: "${params.REPO_URL}"]]])                
+                git branch:"${params.BRANCH_NAME}", url:"${params.REPO_URL}"               
               }
             }
           }
