@@ -66,7 +66,7 @@ pipeline
           {
             script
             {
-              sh("echo ${env.check_if_exists}")
+              //sh("echo ${env.check_if_exists}")
               sh("echo ${env.FINAL_IMAGE}")
             }        
           }
