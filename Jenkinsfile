@@ -55,8 +55,8 @@ pipeline
             
             script 
             {
-              env.FINAL_IMAGE = "fedora:36"
-              env.check_if_exists=sh(returnStdout: true, script: "echo 'fedora-36'")
+              sh scrip:"podman search docker.io/fedora", label: "Lets see if thsi works"
+
             }        
           }
         }
