@@ -1,19 +1,15 @@
 spec:
   containers:
   - args:
-    - "9999999"
+    - 9999999
     command:
-    - "sleep"
-    image: "quay.io/podman/stable:latest"
-    imagePullPolicy: "IfNotPresent"
-    name: "podman-container"
-    resources: {}
-    securityContext:
-      privileged: true
-      runAsUser: 0
+    - sleep
+    image: quay.io/podman/stable:latest
+    imagePullPolicy: IfNotPresent
+    name: podman-builder
     tty: false
     volumeMounts:
-    - mountPath: "/home/jenkins/agent"
+    - mountPath: /home/jenkins/agent
       name: "workspace-volume"
       readOnly: false
-    workingDir: "/home/jenkins/agent" 
+    workingDir: /home/jenkins/agent

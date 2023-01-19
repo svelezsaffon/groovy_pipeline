@@ -41,8 +41,8 @@ pipeline
       {
         kubernetes 
         {
-          defaultContainer 'fed-builder'
-          yaml readPodTemplate("fedora:36")
+          defaultContainer 'podman-builder'
+          yamlFile 'pod_templates/podman.yaml'
         }
       }
 
