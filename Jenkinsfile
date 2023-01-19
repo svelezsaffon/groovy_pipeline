@@ -42,7 +42,7 @@ pipeline
         kubernetes 
         {
           defaultContainer 'jnlp'
-          //yamlFile 'pod_templates/podman.yaml'
+          yamlFile 'pod_templates/build_godto.yaml'
         }
       }
 
