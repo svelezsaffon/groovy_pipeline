@@ -9,7 +9,8 @@ spec:
     name: podman-builder
     tty: false
     securityContext:
-      privileged: true    
+      privileged: true
+      runAsUser: 0
     volumeMounts:
     - mountPath: /home/jenkins/agent
       name: "workspace-volume"

@@ -54,7 +54,7 @@ pipeline
           {
             script
             {
-              env.FINAL_IMAGE=sh(script:"podman search docker.io/fedora", label: "Search for fedora image", returnStdout: true)
+              env.FINAL_IMAGE=sh(script:"podman search docker.io/fedora | grep 36", label: "Search for fedora image", returnStdout: true)
             }              
           }
         }
