@@ -52,7 +52,10 @@ pipeline
         {
           steps
           {
-            sh script:"echo 'phew'", label: "Lets see if thsi works"       
+            script
+            {
+              env.FINAL_IMAGE=sh(script:"podman search docker.io/fedora", label: "Search for fedora image", returnStdout: true)
+            }              
           }
         }
       }
