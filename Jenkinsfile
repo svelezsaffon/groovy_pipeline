@@ -54,16 +54,24 @@ pipeline
           {
             script
             {
-              env.FINAL_IMAGE=sh(script:"podman search docker.io/fedora | grep 36", label: "Search for fedora image", returnStdout: true)
+              env.FINAL_IMAGE="fedora:36"
+              env.CHECK_EXISTS=sh(script:"podman search docker.io/fedora | grep 36", label: "Search for fedora image", returnStdout: true)
             }              
           }
         }
 
         stage("Lets see")
         {
+          when
+          {
+            expression { return env.CHECK_EXISTS !=null }
+          }
           steps
           {
-            sh "echo ${env.FINAL_IMAGE}"
+            script
+            {
+              env.FINAL_IMAGE="fedora:35"
+            }
           }
         }
       }
