@@ -41,8 +41,8 @@ pipeline
       {
         kubernetes 
         {
-          defaultContainer 'podman-conatiner'
-          yamlFile 'pod_templates/podman.yaml'
+          defaultContainer 'jnlp'
+          //yamlFile 'pod_templates/podman.yaml'
         }
       }
 
