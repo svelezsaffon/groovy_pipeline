@@ -30,7 +30,7 @@ pipeline
     text(name: 'SCONS_PARAMS', defaultValue: 'production=yes arch=x86_64 verbose=no warnings=no progress=no target=editor', description: 'Additional scons parameters')
   }
 
-  agent none
+  agent any
 
   stages
   {
