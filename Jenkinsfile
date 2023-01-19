@@ -64,7 +64,7 @@ pipeline
         {
           when
           {
-            expression { return env.CHECK_EXISTS !=null }
+            expression { return env.CHECK_EXISTS == null }
           }
           steps
           {
