@@ -58,6 +58,14 @@ pipeline
             }              
           }
         }
+
+        stage("Lets see")
+        {
+          steps
+          {
+            sh "echo ${env.FINAL_IMAGE}"
+          }
+        }
       }
     }
 
