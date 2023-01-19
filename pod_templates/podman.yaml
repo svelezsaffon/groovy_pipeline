@@ -8,6 +8,8 @@ spec:
     imagePullPolicy: IfNotPresent
     name: podman-builder
     tty: false
+    securityContext:
+      privileged: true    
     volumeMounts:
     - mountPath: /home/jenkins/agent
       name: "workspace-volume"
