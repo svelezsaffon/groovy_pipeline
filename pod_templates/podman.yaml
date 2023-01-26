@@ -16,21 +16,3 @@ spec:
       name: "workspace-volume"
       readOnly: false
     workingDir: /home/jenkins/agent
-    tolerations:
-    - key: "service"
-      operator: "Equal"
-      value: "builder"
-      effect: "NoExecute"
-    - key: "size"
-      operator: "Equal"
-      value: "medium"
-      effect: "NoExecute"
-    affinity:
-      nodeAffinity:
-        requiredDuringSchedulingIgnoredDuringExecution:
-          nodeSelectorTerms:
-          - matchExpressions:
-            - key: service
-              operator: In
-              values:
-              - builder
