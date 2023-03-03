@@ -50,15 +50,15 @@ PARSED_PATH="$(echo $PARSED_URL | sed -nr 's,[^/:]*([/:].*),\1,p')"
 PARSED_HOST="$(echo ${PARSED_URL/$PARSED_PATH/})"
 
 
-CLONE_URL="https://$TOKEN@$PARSED_HOST$PARSED_PATH"
+CLONE_URL="$(echo https://$TOKEN@$PARSED_HOST$PARSED_PATH)"
 
-git clone "$CLONE_URL ."
+git clone "$CLONE_URL" .
 
 }
 
 
 
-while getopts ":hr:" o; do
+while getopts ":hr:t:" o; do
     case "${o}" in
         r)
             # Variable that describe the host of the git repository
