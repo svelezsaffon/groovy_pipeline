@@ -16,6 +16,11 @@ pipeline{
 
     }
 
+    environment
+    {
+      token='$GIT_TOKEN'
+    }
+
     agent
     {
         kubernetes
