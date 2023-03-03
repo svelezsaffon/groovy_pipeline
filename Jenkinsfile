@@ -12,7 +12,7 @@ pipeline{
     parameters
     {
 
-        text(name: 'GIT_TOKEN', defaultValue: '', description: 'Git repository deployment token')
+        password(name: 'GIT_TOKEN', defaultValue: '', description: 'Git repository deployment token')
 
     }
 
