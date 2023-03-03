@@ -2,7 +2,7 @@
 
 eval `ssh-agent -s`
 
-echo "$token" >> id_rsa
+echo "$GIT_TOKEN" >> id_rsa
 
 chmod 400 id_rsa
 

@@ -24,10 +24,6 @@ pipeline{
         }
     }
 
-    environment 
-    { 
-        token = '${params.GIT_TOKEN}'
-    }    
     stages
     {
 
