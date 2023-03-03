@@ -41,7 +41,9 @@ PARSED_URL="$(echo ${PARSED_URL/$PARSED_USER/})"
 
 CLONE_URL="$(echo https://$GIT_TOKEN@$PARSED_URL)"
 
-git init
+pw=$(pwd)
+
+git config --add safe.directory "$pw"
 
 git clone "$CLONE_URL" .
 
