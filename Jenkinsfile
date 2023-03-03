@@ -12,7 +12,7 @@ pipeline{
     {
         kubernetes
         {
-          yaml readPodTemplate("fedora:36")
+            yamlFile 'pod_templates/build_godto.yaml'
         }
     }
     stages{
