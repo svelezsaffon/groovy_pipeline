@@ -54,7 +54,7 @@ pipeline{
             {
               dir('local_godot')
               {
-                sh "../sh/helpers/try_git.sh"
+                sh '../sh/helpers/try_git.sh ${params.GIT_TOKEN}' 
               }
             }
           }
