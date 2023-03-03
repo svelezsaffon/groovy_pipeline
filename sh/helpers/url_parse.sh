@@ -37,6 +37,8 @@ PARSED_USER="$(echo $PARSED_URL | sed -nr 's,^(.*@).*,\1,p')"
 # Remove the user from the URL.
 PARSED_URL="$(echo ${PARSED_URL/$PARSED_USER/})"
 
+# GIT token has the secret, lets use it as env variable so it does not shows on jenkins logs
+
 CLONE_URL="$(echo https://$GIT_TOKEN@$PARSED_URL)"
 
 git clone "$CLONE_URL" .
