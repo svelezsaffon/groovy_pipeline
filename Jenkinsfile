@@ -60,5 +60,16 @@ pipeline{
             }
           }
 
+          stage("show all")
+          {
+            steps
+            {
+              dir('local_godot')
+              {
+                sh "ls -la"
+              }              
+            }
+          }
+
     }
 }
