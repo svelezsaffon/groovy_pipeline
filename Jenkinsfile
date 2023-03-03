@@ -55,7 +55,7 @@ pipeline{
             {
               dir('local_godot')
               {
-                sh('../sh/helpers/url_parse.sh -r https://github.com/godotengine/godot.git -b master')
+                sh('../sh/helpers/url_parse.sh -r git@github.com:svelezsaffon/private_godot.git -b master')
               }
             }
           }
