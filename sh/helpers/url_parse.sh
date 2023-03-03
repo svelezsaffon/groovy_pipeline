@@ -41,6 +41,8 @@ PARSED_URL="$(echo ${PARSED_URL/$PARSED_USER/})"
 
 CLONE_URL="$(echo https://$GIT_TOKEN@$PARSED_URL)"
 
+git init
+
 git clone "$CLONE_URL" .
 
 git fetch origin "$BRANCH"

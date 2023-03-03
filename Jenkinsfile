@@ -55,7 +55,7 @@ pipeline{
             {
               dir('local_godot')
               {
-                sh('../sh/helpers/url_parse.sh -r git@github.com/svelezsaffon/godot_docker.git -b test_this_out')
+                sh('../sh/helpers/url_parse.sh -r https://github.com/godotengine/godot.git -b test_this_out')
               }
             }
           }
