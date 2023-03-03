@@ -55,7 +55,7 @@ pipeline{
             {
               dir('local_godot')
               {
-                sh('../sh/helpers/url_parse.sh -r git@github.com/svelezsaffon/godot_docker.git -t $GIT_TOKEN')
+                sh('../sh/helpers/url_parse.sh -r git@github.com/svelezsaffon/godot_docker.git')
               }
             }
           }
