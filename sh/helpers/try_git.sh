@@ -2,12 +2,6 @@
 
 eval $(ssh-agent -s)
 
-echo "$GIT_TOKEN" >> id_rsa
-
-chmod 400 id_rsa
-
-cat id_rsa
-
-ssh-add id_rsa
+ssh-add - <<< "$GIT_TOKEN"
 
 git clone git@github.com:svelezsaffon/godot_docker.git
