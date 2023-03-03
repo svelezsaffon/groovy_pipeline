@@ -1,1 +1,1 @@
-git clone https://github.com/godotengine/build-containers.git
+git clone https://github.com/svelezsaffon/godot_docker.git
