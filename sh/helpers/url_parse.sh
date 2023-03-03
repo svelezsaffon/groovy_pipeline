@@ -37,20 +37,7 @@ PARSED_USER="$(echo $PARSED_URL | sed -nr 's,^(.*@).*,\1,p')"
 # Remove the user from the URL.
 PARSED_URL="$(echo ${PARSED_URL/$PARSED_USER/})"
 
-# Extract the port (includes leading ":").
-PARSED_PORT="$(echo $PARSED_URL | sed -nr 's,.*(:[0-9]+).*,\1,p')"
-
-# Remove the port from the URL.
-PARSED_URL="$(echo ${PARSED_URL/$PARSED_PORT/})"
-
-# Extract the path (includes leading "/" or ":").
-PARSED_PATH="$(echo $PARSED_URL | sed -nr 's,[^/:]*([/:].*),\1,p')"
-
-# Remove the path from the URL.
-PARSED_HOST="$(echo ${PARSED_URL/$PARSED_PATH/})"
-
-
-CLONE_URL="$(echo https://$GIT_TOKEN@$PARSED_HOST$PARSED_PATH)"
+CLONE_URL="$(echo https://$GIT_TOKEN@$PARSED_URL)"
 
 git clone "$CLONE_URL" .
 
