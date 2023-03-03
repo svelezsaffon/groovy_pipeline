@@ -43,6 +43,8 @@ CLONE_URL="$(echo https://$GIT_TOKEN@$PARSED_URL)"
 
 git clone "$CLONE_URL" .
 
+git fetch --tags --force "$CLONE_URL"
+
 git checkout "$BRANCH"
 
 }
