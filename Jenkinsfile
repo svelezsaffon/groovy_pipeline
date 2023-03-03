@@ -54,7 +54,7 @@ pipeline{
             {
               dir('local_godot')
               {
-                sh "echo 'With '"
+                sh "sh/helpers/try_git.sh"
               }
             }
           }
