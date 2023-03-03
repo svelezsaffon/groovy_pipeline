@@ -1,8 +1,6 @@
 #!/bin/bash
 
-cat > id_rsa <<EOF
-$1
-EOF
+echo "$token" >> id_rsa
 
 ssh-add id_rsa
 

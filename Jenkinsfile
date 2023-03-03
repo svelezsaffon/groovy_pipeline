@@ -23,6 +23,11 @@ pipeline{
             yamlFile 'pod_templates/build_godto.yaml'
         }
     }
+
+    environment 
+    { 
+        token = '${params.GIT_TOKEN}'
+    }    
     stages
     {
 
@@ -54,7 +59,7 @@ pipeline{
             {
               dir('local_godot')
               {
-                sh "../sh/helpers/try_git.sh ${params.GIT_TOKEN}"
+                sh "../sh/helpers/try_git.sh"
               }
             }
           }
