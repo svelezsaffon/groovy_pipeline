@@ -16,11 +16,6 @@ pipeline{
 
     }
 
-    environment
-    {
-      token='$GIT_TOKEN'
-    }
-
     agent
     {
         kubernetes
@@ -60,6 +55,7 @@ pipeline{
             {
               dir('local_godot')
               {
+                sh "export token=$GIT_TOKEN"
                 sh "../sh/helpers/url_parse.sh -r git@github.com/svelezsaffon/godot_docker.git"
               }
             }
