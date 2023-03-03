@@ -8,6 +8,14 @@ def readPodTemplate(image_name)
 
 pipeline{
 
+
+    parameters
+    {
+
+        password(name: 'GIT_TOKEN', defaultValue: '', description: 'Git repository deployment token')
+
+    }
+
     agent
     {
         kubernetes
@@ -15,33 +23,41 @@ pipeline{
             yamlFile 'pod_templates/build_godto.yaml'
         }
     }
-    stages{
-        stage("A"){
-            steps{
-                echo "========executing A========"
+    stages
+    {
+
+          stage('Pull Code no credentials')
+          {
+            when
+            {
+              environment name: 'GIT_TOKEN', value: ''
             }
-            post{
-                always{
-                    echo "========always========"
-                }
-                success{
-                    echo "========A executed successfully========"
-                }
-                failure{
-                    echo "========A execution failed========"
-                }
+            steps
+            {
+              dir('local_godot')
+              {
+                sh "echo 'No creds'"
+              }
             }
-        }
-    }
-    post{
-        always{
-            echo "========always========"
-        }
-        success{
-            echo "========pipeline executed successfully ========"
-        }
-        failure{
-            echo "========pipeline execution failed========"
-        }
+          }
+
+          stage('Pull Code credentials')
+          {
+            when
+            {
+              not
+              {
+                environment name: 'GIT_TOKEN', value: ''
+              }
+            }
+            steps
+            {
+              dir('local_godot')
+              {
+                sh "echo 'With '"
+              }
+            }
+          }
+
     }
 }
