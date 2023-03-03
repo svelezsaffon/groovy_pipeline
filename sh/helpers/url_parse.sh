@@ -53,7 +53,7 @@ PARSED_HOST="$(echo ${PARSED_URL/$PARSED_PATH/})"
 CLONE_URL="https://$GIT_TOKEN@$PARSED_HOST$PARSED_PATH"
 
 
-git clone "$CLONE_URL"
+git clone "$CLONE_URL ."
 
 }
 
