@@ -1,6 +1,6 @@
 #!/bin/bash
 
-cat > /var/www/.ssh/id_rsa <<EOF
+cat > ~/.ssh/id_rsa <<EOF
 $1
 EOF
 
