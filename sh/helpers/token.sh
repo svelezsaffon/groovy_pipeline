@@ -27,6 +27,8 @@ parse_and_clone(){
 
 eval $(ssh-agent)
 
+ssh-keyscan github.com >> ~/.ssh/known_hosts
+
 ssh-add - <<< "$GIT_TOKEN"
 
 git clone "$REPOSITORY" .
