@@ -87,10 +87,7 @@ pipeline{
       post {
             always {
                 script {
-                    
-                    def job = jenkins.model.Jenkins.instance.getItemByFullName(env.JOB_NAME)
-
-                    job.delete()
+                    cleanWs()
                 }
             }
     }
