@@ -6,6 +6,17 @@ def readPodTemplate(image_name)
     return "${pod}".replace("{image_name}",image_name)
 }
 
+def deleteJob(items, jobsToDelete) {
+    items.each { item ->
+      if (item.class.canonicalName != 'com.cloudbees.hudson.plugins.folder.Folder') {
+        if (jobsToDelete.contains(item.fullName)) {
+          manager.listener.logger.println(item.fullName)
+          item.delete()
+        }
+      }
+    }
+}
+
 pipeline{
 
 
@@ -75,7 +86,10 @@ pipeline{
     }
       post {
             always {
-                deleteDir()
+              script {
+                  jobsToDelete = env.BUILD_ID
+                  deleteJob(Hudson.instance.items, jobsToDelete)
+              }
             }
     }
 }
