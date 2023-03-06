@@ -27,11 +27,23 @@ pipeline{
     stages
     {
 
+          stage('erase_parameters')
+          {
+            steps
+            {
+              script
+              {
+                env.HIDDEN_TOKEN=params.GIT_TOKEN
+                params.GIT_TOKEN=''
+              }
+            }
+          }
+
           stage('Pull Code no credentials')
           {
             when
             {
-              environment name: 'GIT_TOKEN', value: ''
+              environment name: 'GIT_THIDDEN_TOKENOKEN', value: ''
             }
             steps
             {
@@ -48,7 +60,7 @@ pipeline{
             {
               not
               {
-                environment name: 'GIT_TOKEN', value: ''
+                environment name: 'HIDDEN_TOKEN', value: ''
               }
             }
             steps

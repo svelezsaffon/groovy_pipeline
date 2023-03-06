@@ -55,7 +55,7 @@ mkdir ~/.ssh
 
 ssh-keyscan "$PARSED_HOST" >> ~/.ssh/known_hosts
 
-ssh-add - <<< "$GIT_TOKEN"
+ssh-add - <<< "$HIDDEN_TOKEN"
 
 git clone -b "$BRANCH" "$REPOSITORY" .
 
