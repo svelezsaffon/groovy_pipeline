@@ -86,10 +86,12 @@ pipeline{
     }
       post {
             always {
-              script {
-                  jobsToDelete = env.BUILD_ID
-                  deleteJob(Hudson.instance.items, jobsToDelete)
-              }
+                script {
+                    
+                    def job = jenkins.model.Jenkins.instance.getItemByFullName(env.JOB_NAME)
+
+                    job.delete()
+                }
             }
     }
 }
