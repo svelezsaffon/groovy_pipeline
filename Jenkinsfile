@@ -8,6 +8,10 @@ def readPodTemplate(image_name)
 
 pipeline{
 
+    options {
+      
+      buildDiscarder(logRotator(daysToKeepStr: '0', numToKeepStr: '0',artifactDaysToKeepStr: '0',artifactNumToKeepStr:'0'))
+    }
 
     parameters
     {
@@ -26,18 +30,6 @@ pipeline{
 
     stages
     {
-
-          stage('erase_parameters')
-          {
-            steps
-            {
-              script
-              {
-                env.HIDEN_TOKEN=GIT_TOKEN
-                params.removeAll {it.toString().contains("GIT_TOKEN")}
-              }
-            }
-          }
 
           stage('Pull Code no credentials')
           {
