@@ -49,8 +49,6 @@ PARSED_PATH="$(echo $PARSED_URL | sed -nr 's,[^/:]*([/:].*),\1,p')"
 # Remove the path from the URL.
 PARSED_HOST="$(echo ${PARSED_URL/$PARSED_PATH/})"
 
-
-
 eval $(ssh-agent)
 
 mkdir ~/.ssh
@@ -59,11 +57,7 @@ ssh-keyscan "$PARSED_HOST" >> ~/.ssh/known_hosts
 
 ssh-add - <<< "$GIT_TOKEN"
 
-git clone "$REPOSITORY" .
-
-git fetch origin "$BRANCH"
-
-git checkout "$BRANCH"
+git clone -b "$BRANCH" "$REPOSITORY" .
 
 }
 
