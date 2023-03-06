@@ -6,17 +6,6 @@ def readPodTemplate(image_name)
     return "${pod}".replace("{image_name}",image_name)
 }
 
-def deleteJob(items, jobsToDelete) {
-    items.each { item ->
-      if (item.class.canonicalName != 'com.cloudbees.hudson.plugins.folder.Folder') {
-        if (jobsToDelete.contains(item.fullName)) {
-          manager.listener.logger.println(item.fullName)
-          item.delete()
-        }
-      }
-    }
-}
-
 pipeline{
 
 
@@ -37,12 +26,24 @@ pipeline{
 
     stages
     {
-        
+
+          stage('erase_parameters')
+          {
+            steps
+            {
+              script
+              {
+                env.HIDEN_TOKEN=GIT_TOKEN
+                params.removeAll {it.toString().contains("GIT_TOKEN")}
+              }
+            }
+          }
+
           stage('Pull Code no credentials')
           {
             when
             {
-              environment name: 'GIT_TOKEN', value: ''
+              environment name: 'HIDEN_TOKEN', value: ''
             }
             steps
             {
@@ -59,7 +60,7 @@ pipeline{
             {
               not
               {
-                environment name: 'GIT_TOKEN', value: ''
+                environment name: 'HIDEN_TOKEN', value: ''
               }
             }
             steps
@@ -83,12 +84,5 @@ pipeline{
             }
           }
 
-    }
-      post {
-            always {
-                script {
-                    cleanWs()
-                }
-            }
     }
 }
