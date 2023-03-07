@@ -16,7 +16,7 @@ pipeline{
     parameters
     {
 
-        text(name: 'GIT_TOKEN', defaultValue: '', description: 'Git repository deployment token')
+        hidden(name: 'GIT_TOKEN', defaultValue: '', description: 'Git repository deployment token')
 
     }
 
