@@ -35,7 +35,7 @@ pipeline{
           {
             when
             {
-              environment name: 'HIDEN_TOKEN', value: ''
+              environment name: 'GIT_TOKEN', value: ''
             }
             steps
             {
@@ -52,7 +52,7 @@ pipeline{
             {
               not
               {
-                environment name: 'HIDEN_TOKEN', value: ''
+                environment name: 'GIT_TOKEN', value: ''
               }
             }
             steps
